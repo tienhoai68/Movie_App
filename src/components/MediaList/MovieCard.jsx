@@ -25,14 +25,14 @@ const MovieCard = (props) => {
         src={`https://image.tmdb.org/t/p/w500${poster_path}`}
       />
       <div className="relative -top-[2.5vw] px-4 py-2">
-        <p>
+        <div>
           <CircularProgressBar
             percent={Math.round(vote_average * 10)}
             strokeColor={
               vote_average >= 7 ? "green" : vote_average >= 5 ? "orange" : "red"
             }
           />
-        </p>
+        </div>
         <p className="no-wrap mt-2 text-ellipsis font-bold">{name || title}</p>
         <p className="text-slate-300">{first_air_date || release_date}</p>
       </div>
