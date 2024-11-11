@@ -2,7 +2,6 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 const Movies = (props) => {
-  // console.log(props);
   const {
     data: { backdrop_path, title, release_date, overview },
   } = props;
@@ -10,7 +9,7 @@ const Movies = (props) => {
     <div>
       <img
         src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
-        className="aspect-video brightness-50"
+        className="aspect-video w-full brightness-50"
         alt="banner"
       />
       <div className="absolute bottom-[10%] left-8 w-1/2 sm:w-1/3">

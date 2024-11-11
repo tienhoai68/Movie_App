@@ -1,7 +1,9 @@
+import CircularProgressBar from "@components/CircularProgressBar";
 import React from "react";
-import CircularProgressBar from "./CircularProgressBar";
+import { useNavigate } from "react-router-dom";
 
 const MovieCard = (props) => {
+  const navigate = useNavigate();
   const {
     item: {
       name,
@@ -10,11 +12,19 @@ const MovieCard = (props) => {
       first_air_date,
       release_date,
       vote_average,
-      media_type,
+      id,
     },
+    media_type,
   } = props;
+  const handleViewDetail = (id) => {
+    console.log(id);
+    navigate(`/movieDetail/${id}`);
+  };
   return (
-    <div className="relative rounded-lg border border-slate-800">
+    <div
+      onClick={() => handleViewDetail(id)}
+      className="relative cursor-pointer rounded-lg border border-slate-800"
+    >
       {media_type && media_type === "tv" && (
         <p className="absolute right-1 top-1 rounded bg-black p-1 text-sm text-white shadow-md">
           TV Show
