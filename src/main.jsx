@@ -2,10 +2,12 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import HomePage from "./pages/HomePage.jsx";
-import MovieDetail from "./pages/MovieDetail.jsx";
-import RootLayout from "./pages/RootLayout.jsx";
 
+import TVShowDetails from "@pages/TVShowDetails";
+import RootLayout from "@pages/RootLayout";
+import HomePage from "@pages/HomePage";
+import MovieDetail from "@pages/MovieDetail";
+import ModalProvider from "@context/ModalProvider";
 const router = createBrowserRouter([
   {
     element: <RootLayout />,
@@ -19,6 +21,10 @@ const router = createBrowserRouter([
         element: <MovieDetail />,
       },
       {
+        path: "/tv/:id",
+        element: <TVShowDetails />,
+      },
+      {
         path: "*",
         element: <div>404</div>,
       },
@@ -28,6 +34,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <ModalProvider>
+      <RouterProvider router={router} />
+    </ModalProvider>
   </StrictMode>,
 );

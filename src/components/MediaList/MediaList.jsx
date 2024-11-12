@@ -1,32 +1,12 @@
 import MovieCard from "@components/MovieCard";
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import useFetch from "@hooks/useFetch";
+import React, { useState } from "react";
 const MediaList = ({ title, tabs }) => {
-  const [mediaList, setMediaList] = useState([]);
   const [activeTabId, setActiveTabId] = useState(tabs[0]?.id);
-
-  const handleFetchApiTrending = () => {
-    const url = tabs.find((tab) => tab.id === activeTabId)?.url;
-    if (url) {
-      fetch(`https://api.themoviedb.org/3${url}`, {
-        method: "GET",
-        headers: {
-          accept: "application/json",
-          Authorization:
-            "Bearer " +
-            "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMWIzOTE3OWE5YTkzODU4NWY3MTJmYTNlZTAwZDkxNiIsIm5iZiI6MTczMTAzNTE4Ny4wNDIzOTY4LCJzdWIiOiI2NzJkN2YwZjI2YjYwNWJjMTllNWUyMTQiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.iG5_xTSwVEi41DLZF_w__azbq6g-mmAmdNJhp_7bzWc",
-        },
-      }).then(async (res) => {
-        const data = await res.json();
-
-        setMediaList(data.results);
-      });
-    }
-  };
-
-  useEffect(() => {
-    handleFetchApiTrending();
-  }, [activeTabId, tabs]);
+  const { data } = useFetch({
+    url: tabs.find((tab) => tab.id === activeTabId)?.url,
+  });
+  const mediaList = (data?.results || []).slice(0, 12);
 
   return (
     <div className="bg-black px-8 py-10 text-[1.2vw] text-white">
@@ -49,11 +29,15 @@ const MediaList = ({ title, tabs }) => {
       <div className="mt-2 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-6 lg:gap-6">
         {mediaList &&
           mediaList.length > 0 &&
-          mediaList.map((item) => (
+          mediaList.map((media) => (
             <MovieCard
-              item={item}
-              key={item.id}
-              media_type={item.media_type || activeTabId}
+              key={media.id}
+              id={media.id}
+              title={media.title || media.name}
+              releaseDate={media.release_date || media.first_air_date}
+              poster={media.poster_path}
+              point={media.vote_average}
+              media_type={media.media_type || activeTabId}
             />
           ))}
       </div>

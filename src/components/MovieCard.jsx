@@ -1,24 +1,15 @@
 import CircularProgressBar from "@components/CircularProgressBar";
+import ImageComponent from "@components/ImageComponent";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const MovieCard = (props) => {
+const MovieCard = ({ ...props }) => {
   const navigate = useNavigate();
-  const {
-    item: {
-      name,
-      title,
-      poster_path,
-      first_air_date,
-      release_date,
-      vote_average,
-      id,
-    },
-    media_type,
-  } = props;
+  const { title, releaseDate, poster, point, id, media_type } = props;
   const handleViewDetail = (id) => {
-    console.log(id);
-    navigate(`/movieDetail/${id}`);
+    media_type === "tv"
+      ? navigate(`/tv/${id}`)
+      : navigate(`/movieDetail/${id}`);
   };
   return (
     <div
@@ -30,21 +21,22 @@ const MovieCard = (props) => {
           TV Show
         </p>
       )}
-      <img
-        className="rounded-lg"
-        src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+      <ImageComponent
+        src={`https://image.tmdb.org/t/p/w500${poster}`}
+        width={210}
+        height={300}
+        className={"w-full rounded-lg"}
       />
+
       <div className="relative -top-[2.5vw] px-4 py-2">
         <div>
           <CircularProgressBar
-            percent={Math.round(vote_average * 10)}
-            strokeColor={
-              vote_average >= 7 ? "green" : vote_average >= 5 ? "orange" : "red"
-            }
+            percent={Math.round(point * 10)}
+            strokeColor={point >= 7 ? "green" : point >= 5 ? "orange" : "red"}
           />
         </div>
-        <p className="no-wrap mt-2 text-ellipsis font-bold">{name || title}</p>
-        <p className="text-slate-300">{first_air_date || release_date}</p>
+        <p className="no-wrap mt-2 text-ellipsis font-bold">{title}</p>
+        <p className="text-slate-300">{releaseDate}</p>
       </div>
     </div>
   );
