@@ -2,10 +2,10 @@ import Loading from "@components/Loading";
 import MovieCard from "@components/MovieCard";
 import React from "react";
 
-const RealatedMediaList = ({ mediaList = [], isLoading }) => {
+const RealatedMediaList = ({ mediaList = [], isLoading, title }) => {
   return (
     <div>
-      <p className="mb-4 mt-6 text-[1.4vw] font-bold">More like this</p>
+      <p className="mb-4 mt-6 text-[1.4vw] font-bold">{title}</p>
       {isLoading ? (
         <Loading />
       ) : (

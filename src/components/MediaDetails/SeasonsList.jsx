@@ -18,7 +18,7 @@ const SeasonsList = ({ seasons = [] }) => {
             className={"w-1/4 rounded-lg"}
             width={130}
             height={195}
-            src={`https://media.themoviedb.org/t/p/w300${season.poster_path}`}
+            src={season.poster_path && `https://media.themoviedb.org/t/p/w300${season.poster_path}`}
           />
           <div className="space-y-1">
             <p className="text-[1.4vw] font-bold">{season.name}</p>

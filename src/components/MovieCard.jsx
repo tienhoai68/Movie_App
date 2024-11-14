@@ -22,7 +22,7 @@ const MovieCard = ({ ...props }) => {
         </p>
       )}
       <ImageComponent
-        src={`https://image.tmdb.org/t/p/w500${poster}`}
+        src={poster && `https://image.tmdb.org/t/p/w500${poster}`}
         width={210}
         height={300}
         className={"w-full rounded-lg"}

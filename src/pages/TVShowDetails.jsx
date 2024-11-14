@@ -66,6 +66,7 @@ const TVShowDetails = () => {
 
             <SeasonsList seasons={tvInfo.seasons} />
             <RealatedMediaList
+              title="More like this"
               mediaList={relatedTVShow || []}
               isLoading={isRelatedMoviesLoading}
             />

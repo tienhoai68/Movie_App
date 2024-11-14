@@ -10,16 +10,18 @@ const Header = () => {
           <img src="/netflix.png" alt="" className="w-16 sm:w-28" />
         </Link>
 
-        <a href="" className="lg:text-xl">
-          Phim{" "}
-        </a>
-        <a href="" className="lg:text-xl">
-          Phim truyền hình
-        </a>
+        <Link to="/search?mediaType=movie" className="lg:text-xl">
+          Movie
+        </Link>
+        <Link to="/search?mediaType=tv" className="lg:text-xl">
+          Tv Shows
+        </Link>
       </div>
-      <div className="cursor-pointer">
-        <FontAwesomeIcon icon={faMagnifyingGlass} />
-      </div>
+      <Link to="/search">
+        <div className="cursor-pointer">
+          <FontAwesomeIcon icon={faMagnifyingGlass} />
+        </div>
+      </Link>
     </header>
   );
 };

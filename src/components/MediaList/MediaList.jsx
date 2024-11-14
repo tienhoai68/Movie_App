@@ -1,13 +1,20 @@
 import MovieCard from "@components/MovieCard";
 import useFetch from "@hooks/useFetch";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 const MediaList = ({ title, tabs }) => {
-  const [activeTabId, setActiveTabId] = useState(tabs[0]?.id);
+  const [activeTabId, setActiveTabId] = useState(() => {
+    const storedTabId = sessionStorage.getItem("activeTabId");
+    return storedTabId || tabs[0]?.id;
+  });
+
   const { data } = useFetch({
     url: tabs.find((tab) => tab.id === activeTabId)?.url,
   });
+  // lưu activeTabId với sessionStorage mục đích render đúng trạng thái trước đó khi rời khỏi trang
   const mediaList = (data?.results || []).slice(0, 12);
-
+  useEffect(() => {
+    sessionStorage.setItem("activeTabId", activeTabId);
+  }, [activeTabId]);
   return (
     <div className="bg-black px-8 py-10 text-[1.2vw] text-white">
       <div className="flex items-center gap-6 text-white">
